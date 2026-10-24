@@ -7,8 +7,14 @@ test("GET / returns the greeting", async () => {
 	expect(await res.text()).toBe("Hello Hono!");
 });
 
-test("GET / test greeting with params", async () => {
+test("GET / test endpoint /hello/:name", async () => {
 	const res = await app.request("/hello/Hono");
 	expect(res.status).toBe(200);
-	expect(await res.json()).toMatchObject({ message: `Hello, Hono!` });
+	expect(await res.json()).toMatchObject({ message: "Hello, Hono!" });
+});
+
+test("GET / test endpoint /hello/:name", async () => {
+	const res = await app.request("/hello/Ada%20Lovelace");
+	expect(res.status).toBe(200);
+	expect(await res.json()).toMatchObject({ message: "Hello, Ada Lovelace!" });
 });
